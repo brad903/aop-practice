@@ -1,5 +1,6 @@
 package aop.question;
 
+import aop.aspect.LoginCheck;
 import aop.security.HttpSessionUtils;
 import aop.security.UnAuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,8 @@ public class ApiQuestionController {
     private QuestionRepository questionRepository;
 
     @PostMapping("")
-    public ResponseEntity<Void> post(Question question, HttpSession session) {
-        if(!HttpSessionUtils.isLogin(session)) throw new UnAuthenticationException("로그인이 필요합니다.");
+    @LoginCheck
+    public ResponseEntity<Void> post(HttpSession session, Question question) {
         // ..
         // 내부 로직
         // ..
@@ -25,8 +26,8 @@ public class ApiQuestionController {
     }
 
     @GetMapping("/{id}/form")
-    public ResponseEntity<Void> showUpdateForm(@PathVariable Long id, HttpSession session) {
-        if(!HttpSessionUtils.isLogin(session)) throw new UnAuthenticationException("로그인이 필요합니다.");
+    @LoginCheck
+    public ResponseEntity<Void> showUpdateForm(HttpSession session, @PathVariable Long id) {
         // ..
         // 내부 로직
         // ..
@@ -34,8 +35,8 @@ public class ApiQuestionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateQuestion(@PathVariable Long id, Question updatedQuestion, HttpSession session) {
-        if(!HttpSessionUtils.isLogin(session)) throw new UnAuthenticationException("로그인이 필요합니다.");
+    @LoginCheck
+    public ResponseEntity<Void> updateQuestion(HttpSession session, @PathVariable Long id, Question updatedQuestion) {
         // ..
         // 내부 로직
         // ..
@@ -43,8 +44,8 @@ public class ApiQuestionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id, HttpSession session) {
-        if(!HttpSessionUtils.isLogin(session)) throw new UnAuthenticationException("로그인이 필요합니다.");
+    @LoginCheck
+    public ResponseEntity<Void> delete(HttpSession session, @PathVariable Long id) {
         // ..
         // 내부 로직
         // ..
