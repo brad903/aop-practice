@@ -18,7 +18,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 public class LoginAspect {
     private static final Logger log = getLogger(LoginAspect.class);
 
-    @Pointcut("execution(* aop.question.ApiQuestionController.*(..)) && args(session,..)")
+    @Pointcut("@annotation(LoginCheck) && args(session,..)")
     public void getSession(HttpSession session) {
     }
 

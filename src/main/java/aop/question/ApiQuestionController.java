@@ -1,5 +1,6 @@
 package aop.question;
 
+import aop.aspect.LoginCheck;
 import aop.security.HttpSessionUtils;
 import aop.security.UnAuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class ApiQuestionController {
     private QuestionRepository questionRepository;
 
     @PostMapping("")
+    @LoginCheck
     public ResponseEntity<Void> post(HttpSession session, Question question) {
         // ..
         // 내부 로직
@@ -24,6 +26,7 @@ public class ApiQuestionController {
     }
 
     @GetMapping("/{id}/form")
+    @LoginCheck
     public ResponseEntity<Void> showUpdateForm(HttpSession session, @PathVariable Long id) {
         // ..
         // 내부 로직
@@ -32,6 +35,7 @@ public class ApiQuestionController {
     }
 
     @PutMapping("/{id}")
+    @LoginCheck
     public ResponseEntity<Void> updateQuestion(HttpSession session, @PathVariable Long id, Question updatedQuestion) {
         // ..
         // 내부 로직
@@ -40,6 +44,7 @@ public class ApiQuestionController {
     }
 
     @DeleteMapping("/{id}")
+    @LoginCheck
     public ResponseEntity<Void> delete(HttpSession session, @PathVariable Long id) {
         // ..
         // 내부 로직
